@@ -33,3 +33,46 @@ git clone [https://github.com/Ace-1111/leafmd-mobile-app.git](https://github.com
 cd leafmd-mobile-app
 flutter pub get
 flutter run
+
+
+# 🌿 LeafMD – AI Plant Disease Diagnosis System
+
+[![Download APK](https://img.shields.io/badge/Download%20APK-Google%20Drive-34A853?style=for-the-badge&logo=google-drive&logoColor=white)]https://drive.google.com/file/d/1aRWoSLHJe0gYo9M21WRpYLrDX_EUZzX7/view?usp=sharing
+[![Live Backend](https://img.shields.io/badge/API-Render-46E3B7?style=for-the-badge&logo=render&logoColor=black)](https://leafmd-api.onrender.com)
+[![Flutter](https://img.shields.io/badge/Frontend-Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)](https://github.com/Ace-1111/leafmd-mobile-app)
+[![FastAPI](https://img.shields.io/badge/Backend-FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://github.com/Ace-1111/plant-disease-backend)
+
+An intelligent, cloud-connected mobile health companion for crops. Farmers and gardeners can snap photos of infected plant leaves and receive instant AI diagnosis with cure recommendations.
+
+---
+
+## 📲 Try the App (Instant Install)
+
+Aapko code compile karne ki zaroorat nahi hai. Direct ready-to-use APK download karke install karein:
+
+👉 **[📥 Download LeafMD APK (Latest Release)][(https://drive.google.com/file/d/1aRWoSLHJe0gYo9M21WRpYLrDX_EUZzX7/view?usp=sharing)]**
+
+
+---
+
+## ✨ Features
+* 📸 **Capture & Gallery Upload:** Instant leaf capture via phone camera or gallery selector.
+* ✂️ **Interactive Cropping:** Crop precisely to the diseased foliage spot for maximum AI accuracy.
+* ⚡ **Live Cloud Classification:** Connected 24/7 to our containerized FastAPI backend on Render.
+* 🛡️ **Remedies & Advice:** Provides organic & chemical remedies alongside the confidence score.
+
+---
+
+## 🏛️ System Architecture
+
+```text
+  [Android Device (LeafMD App)]
+                │
+                ▼ (Multipart Upload)
+  [Cloud: Render.com Container]
+                │
+                ▼ (FastAPI /predict)
+    [AI Vision Inference Engine]
+                │
+                ▼ (JSON: Disease, Confidence, Remedy)
+  [Instant Health Report on Screen]
