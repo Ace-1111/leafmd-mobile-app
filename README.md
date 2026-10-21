@@ -15,8 +15,6 @@ Direct ready-to-use APK download karke apne Android phone par install karein:
 
 👉 **[📥 Download LeafMD APK (Latest Release)](https://drive.google.com/file/d/1aRWoSLHJe0gYo9M21WRpYLrDX_EUZzX7/view?usp=sharing)**
 
-> **Note:** Install karte samay agar *"Install from Unknown Sources"* ya *"Play Protect Warning"* aaye, toh **Install anyway** select karein.
-
 ---
 
 ## ✨ Features
