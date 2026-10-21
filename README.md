@@ -50,33 +50,41 @@ flutter pub get
 flutter run
 ```
 ---
-## System Architecture
+
+## 🏛️ System Architecture
+
 ```mermaid
-graph TD
-    %% Styling
-    classDef client fill:#02569B,stroke:#013B6B,stroke-width:2px,color:#fff;
-    classDef cloud fill:#009688,stroke:#00695C,stroke-width:2px,color:#fff;
-    classDef ai fill:#FF6F00,stroke:#E65100,stroke-width:2px,color:#fff;
-    classDef output fill:#2E7D32,stroke:#1B5E20,stroke-width:2px,color:#fff;
-
-    subgraph Mobile_App ["📱 Flutter Mobile Client"]
-        A[Camera / Gallery Selection]:::client --> B[Interactive Image Cropper]:::client
-        B --> C[HTTP Multipart Request]:::client
+flowchart TD
+    subgraph Client ["📱 Client Layer (Flutter App)"]
+        UI1["📸 Camera / Gallery"] --> UI2["✂️ Image Cropper & Preview"]
+        UI2 --> HTTP["🌐 Multipart HTTP POST (/predict)"]
     end
 
-    subgraph Cloud_Backend ["☁️ Render Cloud Infrastructure"]
-        C -->|POST /predict via HTTPS| D[FastAPI Gateway]:::cloud
-        D --> E[Image Tensor Preprocessing]:::cloud
+    subgraph Cloud ["☁️ Cloud Server (Render.com)"]
+        API["⚡ FastAPI Endpoint Gateway"]
+        PRE["🔄 Preprocessing (Resize to 256x256, Normalize)"]
+        HTTP --> API
+        API --> PRE
     end
 
-    subgraph AI_Engine ["🧠 Deep Learning Inference"]
-        E --> F[CNN Classification Model]:::ai
-        F --> G[Extract Predictions & Confidence]:::ai
-        G --> H[Map Remedial Measures]:::ai
+    subgraph Model ["🧠 AI Inference Engine"]
+        CNN["🌲 Deep Learning CNN Model"]
+        CONF["📊 Argmax & Softmax Confidence Calculation"]
+        REMEDY["💊 Cure & Prevention Mapping"]
+        PRE --> CNN
+        CNN --> CONF
+        CONF --> REMEDY
     end
 
-    subgraph Result_Display ["📊 Diagnosis Output"]
-        H -->|JSON Response| I[Flutter Results Screen]:::output
-        I --> J[Disease Name & Confidence %]:::output
-        I --> K[Organic & Chemical Treatments]:::output
+    subgraph Response ["📲 User Presentation"]
+        JSON["📦 JSON Payload (Class, Confidence, Remedies)"]
+        RESULT["📋 Interactive Diagnosis Card on Mobile"]
+        REMEDY --> JSON
+        JSON --> RESULT
     end
+
+    style Client fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#fff
+    style Cloud fill:#1e1b4b,stroke:#818cf8,stroke-width:2px,color:#fff
+    style Model fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#fff
+    style Response fill:#312e81,stroke:#a78bfa,stroke-width:2px,color:#fff
+```
