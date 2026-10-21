@@ -1,40 +1,3 @@
-# 🌿 LeafMD – Mobile Application
-
-LeafMD is a cross-platform Flutter application designed to assist farmers and gardeners in detecting plant leaf diseases instantly using Computer Vision and AI.
-
----
-
-## 📱 Features
-* **Camera & Gallery Capture:** Directly photograph infected leaves or pick from the gallery.
-* **Smart Crop:** Integrated cropping tool to focus specifically on affected leaf regions.
-* **Real-time Diagnostics:** Connects to a cloud-hosted FastAPI backend for sub-second classification.
-* **Treatment Recommendations:** Displays disease confidence scores along with practical remedies.
-
----
-
-## 🛠️ Tech Stack
-* **Framework:** Flutter (Dart)
-* **Backend Integration:** REST APIs via `http` package
-* **Tools:** `image_picker`, `image_cropper`, `flutter_launcher_icons`
-* **Live API Backend:** [leafmd-api on Render](https://leafmd-api.onrender.com)
-* **Backend Source Code:** [plant-disease-backend](https://github.com/Ace-1111/plant-disease-backend)
-
----
-
-## 🚀 Getting Started
-
-### Prerequisites
-* Flutter SDK installed
-* Android Studio / VS Code
-
-### Run Locally
-```bash
-git clone [https://github.com/Ace-1111/leafmd-mobile-app.git](https://github.com/Ace-1111/leafmd-mobile-app.git)
-cd leafmd-mobile-app
-flutter pub get
-flutter run
-
-
 # 🌿 LeafMD – AI Plant Disease Diagnosis System
 
 [![Download APK](https://img.shields.io/badge/Download%20APK-Google%20Drive-34A853?style=for-the-badge&logo=google-drive&logoColor=white)](https://drive.google.com/file/d/1aRWoSLHJe0gYo9M21WRpYLrDX_EUZzX7/view?usp=sharing)
@@ -48,11 +11,11 @@ An intelligent, cloud-connected mobile health companion for crops. Farmers and g
 
 ## 📲 Try the App (Instant Install)
 
-Aapko code compile karne ki zaroorat nahi hai. Direct ready-to-use APK download karke install karein:
+Direct ready-to-use APK download karke apne Android phone par install karein:
 
 👉 **[📥 Download LeafMD APK (Latest Release)](https://drive.google.com/file/d/1aRWoSLHJe0gYo9M21WRpYLrDX_EUZzX7/view?usp=sharing)**
 
-> **Note:** Install karte samay agar *"Install from Unknown Sources"* ya *"Play Protect Warning"* aaye, toh **Install anyway** par click karein.
+> **Note:** Install karte samay agar *"Install from Unknown Sources"* ya *"Play Protect Warning"* aaye, toh **Install anyway** select karein.
 
 ---
 
@@ -64,16 +27,56 @@ Aapko code compile karne ki zaroorat nahi hai. Direct ready-to-use APK download 
 
 ---
 
-## 🏛️ System Architecture
+## 🛠️ Tech Stack
+* **Frontend:** Flutter (Dart)
+* **Backend:** FastAPI (Python)
+* **Tools:** `image_picker`, `image_cropper`, `flutter_launcher_icons`
+* **Live API Backend:** [leafmd-api on Render](https://leafmd-api.onrender.com)
+* **Backend Source Code:** [plant-disease-backend](https://github.com/Ace-1111/plant-disease-backend)
 
-```text
-  [Android Device (LeafMD App)]
-                │
-                ▼ (Multipart Upload)
-  [Cloud: Render.com Container]
-                │
-                ▼ (FastAPI /predict)
-    [AI Vision Inference Engine]
-                │
-                ▼ (JSON: Disease, Confidence, Remedy)
-  [Instant Health Report on Screen]
+---
+
+## 🚀 Run Locally
+
+### Prerequisites
+* Flutter SDK installed
+* Android Studio / VS Code
+
+### Steps
+```bash
+git clone https://github.com/Ace-1111/leafmd-mobile-app.git
+cd leafmd-mobile-app
+flutter pub get
+flutter run
+```
+---
+## System Architecture
+```mermaid
+graph TD
+    %% Styling
+    classDef client fill:#02569B,stroke:#013B6B,stroke-width:2px,color:#fff;
+    classDef cloud fill:#009688,stroke:#00695C,stroke-width:2px,color:#fff;
+    classDef ai fill:#FF6F00,stroke:#E65100,stroke-width:2px,color:#fff;
+    classDef output fill:#2E7D32,stroke:#1B5E20,stroke-width:2px,color:#fff;
+
+    subgraph Mobile_App ["📱 Flutter Mobile Client"]
+        A[Camera / Gallery Selection]:::client --> B[Interactive Image Cropper]:::client
+        B --> C[HTTP Multipart Request]:::client
+    end
+
+    subgraph Cloud_Backend ["☁️ Render Cloud Infrastructure"]
+        C -->|POST /predict via HTTPS| D[FastAPI Gateway]:::cloud
+        D --> E[Image Tensor Preprocessing]:::cloud
+    end
+
+    subgraph AI_Engine ["🧠 Deep Learning Inference"]
+        E --> F[CNN Classification Model]:::ai
+        F --> G[Extract Predictions & Confidence]:::ai
+        G --> H[Map Remedial Measures]:::ai
+    end
+
+    subgraph Result_Display ["📊 Diagnosis Output"]
+        H -->|JSON Response| I[Flutter Results Screen]:::output
+        I --> J[Disease Name & Confidence %]:::output
+        I --> K[Organic & Chemical Treatments]:::output
+    end
